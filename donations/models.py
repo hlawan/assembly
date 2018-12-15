@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -8,9 +9,12 @@ class Member(models.Model):
     house_number = models.PositiveSmallIntegerField(null=True, blank=True)
     post_code = models.PositiveSmallIntegerField(null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
-    mail = models.CharField(max_length=200, null=True, blank=True)
+    mail = models.EmailField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
     birthdate = models.DateField(null=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('member-detail', args=[str(self.id)])
 
 class MonthlyContribution(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
