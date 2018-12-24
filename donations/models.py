@@ -4,8 +4,9 @@ from django.urls import reverse
 # Create your models here.
 
 class Member(models.Model):
-    name = models.CharField(max_length=200)
-    address = models.CharField(max_length=200, null=True, blank=True)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200, null=True, blank=True)
+    street = models.CharField(max_length=200, null=True, blank=True)
     house_number = models.PositiveSmallIntegerField(null=True, blank=True)
     post_code = models.PositiveSmallIntegerField(null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
