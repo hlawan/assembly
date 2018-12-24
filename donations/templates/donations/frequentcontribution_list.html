@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>Frequent Contribution</h1>
+<a href="{% url 'frequentcontribution-create' %}" >Add</a>
 <ul>
 {% for frequentcontribution in object_list %}
 <li><a href="{{ frequentcontribution.get_absolute_url }}" >{{ frequentcontribution.member.first_name }}</a></li>
