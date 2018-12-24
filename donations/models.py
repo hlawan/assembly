@@ -17,11 +17,20 @@ class Member(models.Model):
     def get_absolute_url(self):
         return reverse('member-detail', args=[str(self.id)])
 
+    def __str__(self):
+        return self.first_name + " " + \
+               self.last_name
+
 class FrequentContribution(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
     period = models.DurationField()
     direct_debit = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.member.first_name + " " + \
+               self.member.last_name + " ( " + \
+               str(self.amount) + "€ )"
 
 class Donation(models.Model):
     member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
@@ -29,3 +38,8 @@ class Donation(models.Model):
     date = models.DateField()
     arrived = models.BooleanField(default=False)
     frequent_contribution = models.ForeignKey(FrequentContribution, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.member.first_name + " " + \
+               self.member.last_name + " ( " + \
+               str(self.amount) + "€ )"
