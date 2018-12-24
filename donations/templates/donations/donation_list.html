@@ -2,10 +2,10 @@
 {% block title}
 {% block content %}
 
-<h1>Members</h1>
+<h1>Donation</h1>
 <ul>
-{% for member in object_list %}
-<li><a href="{{ member.get_absolute_url }}" >{{ member.first_name }}</a></li>
+{% for donation in object_list %}
+<li><a href="{{ donation.get_absolute_url }}" >{{ donation.member.first_name }}</a></li>
 {% empty %}
     <li>No members yet.</li>
 {% endfor %}

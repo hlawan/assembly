@@ -8,9 +8,12 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from donations.models import Member
+from donations.models import Donation
+from donations.models import FrequentContribution
+
 from . import forms
 
-# Create your views here.
+# Member
 
 class MemberDetailView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
@@ -39,3 +42,63 @@ class MemberCreateView(LoginRequiredMixin, CreateView):
 class MemberDeleteView(LoginRequiredMixin, DeleteView):
     model = Member
     success_url = reverse_lazy('member-list')
+
+# Donations
+
+class DonationDetailView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = Donation
+    template_name = 'donations/donation_detail.html'
+    form_class = forms.DonationForm
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        return super().form_valid(form)
+
+class DonationListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = Donation
+    paginate_by = 100
+
+class DonationCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = Donation
+    form_class = forms.DonationForm
+
+class DonationDeleteView(LoginRequiredMixin, DeleteView):
+    model = Donation
+    success_url = reverse_lazy('donation-list')
+
+# FrequentContribution
+
+class FrequentContributionDetailView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = FrequentContribution
+    template_name = 'donations/frequentcontribution_detail.html'
+    form_class = forms.FrequentContributionForm
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        return super().form_valid(form)
+
+class FrequentContributionListView(LoginRequiredMixin, ListView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = FrequentContribution
+    paginate_by = 100
+
+class FrequentContributionCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = FrequentContribution
+    form_class = forms.FrequentContributionForm
+
+class FrequentContributionDeleteView(LoginRequiredMixin, DeleteView):
+    model = FrequentContribution
+    success_url = reverse_lazy('frequentcontribution-list')

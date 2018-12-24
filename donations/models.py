@@ -27,6 +27,9 @@ class FrequentContribution(models.Model):
     period = models.DurationField()
     direct_debit = models.BooleanField(default=True)
 
+    def get_absolute_url(self):
+        return reverse('frequentcontribution-detail', args=[str(self.id)])
+
     def __str__(self):
         return self.member.first_name + " " + \
                self.member.last_name + " ( " + \
@@ -38,6 +41,9 @@ class Donation(models.Model):
     date = models.DateField()
     arrived = models.BooleanField(default=False)
     frequent_contribution = models.ForeignKey(FrequentContribution, on_delete=models.CASCADE, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('donation-detail', args=[str(self.id)])
 
     def __str__(self):
         return self.member.first_name + " " + \
