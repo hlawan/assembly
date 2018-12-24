@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from donations.models import Member
@@ -26,3 +27,10 @@ class MemberListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'next'
     model = Member
     paginate_by = 100
+
+class MemberCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+    model = Member
+    #fields = ['first_name', last_name', ]
+    form_class = forms.MemberForm
