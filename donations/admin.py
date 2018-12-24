@@ -5,5 +5,5 @@ from django.contrib import admin
 from . import models
 
 admin.site.register(models.Member)
-admin.site.register(models.MonthlyContribution)
+admin.site.register(models.FrequentContribution)
 admin.site.register(models.Donation)

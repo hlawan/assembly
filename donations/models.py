@@ -17,9 +17,10 @@ class Member(models.Model):
     def get_absolute_url(self):
         return reverse('member-detail', args=[str(self.id)])
 
-class MonthlyContribution(models.Model):
+class FrequentContribution(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
+    period = models.DurationField()
     direct_debit = models.BooleanField(default=True)
 
 class Donation(models.Model):
@@ -27,4 +28,4 @@ class Donation(models.Model):
     amount = models.DecimalField(max_digits=9, decimal_places=2)
     date = models.DateField()
     arrived = models.BooleanField(default=False)
-    monthly_contribution = models.ForeignKey(MonthlyContribution, on_delete=models.CASCADE, blank=True, null=True)
+    frequent_contribution = models.ForeignKey(FrequentContribution, on_delete=models.CASCADE, blank=True, null=True)
