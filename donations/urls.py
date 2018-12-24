@@ -21,4 +21,5 @@ urlpatterns = [
     path('member/<int:pk>', views.MemberDetailView.as_view(), name='member-detail'),
     path('member/', views.MemberListView.as_view(), name='member-list'),
     path('member/create', views.MemberCreateView.as_view(), name='member-create' ),
+    path('member/delete/<int:pk>', views.MemberDeleteView.as_view(), name='member-delete')
 ]
