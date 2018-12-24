@@ -1,0 +1,1015 @@
+/*
+ Theme Name:   Misty Lake Child
+ Theme URI:    http://halisiperspectives.de/misty-child
+ Description:  Misty Lake Child Theme
+ Author:       Jonas
+ Author URI:   http://halisiperspectives.de
+ Template:     misty-lake
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  misty-lake-child
+*/
+
+/* =Reset
+-------------------------------------------------------------- */
+@font-face {
+font-family: "FLEAMARKET";
+src: url("/Flea Market Finds.ttf");
+}
+
+body {
+  border-top: none;
+}
+
+.flexContainer {
+  display: flex;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+h1 {
+  font-family: Helvetica, Arial, sans-serif;
+	font-weight: 600;
+}
+
+h2 {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.entry-content h1{
+  font-size: 1.5em;
+  font-family: Helvetica, Arial, sans-serif;
+	font-weight: 600;
+}
+
+.blogPost {
+  font-size: large;
+}
+
+.site-title {
+	position: relative
+	display: inline-block;
+	vertical-align: top;
+	font-family: FLEAMARKET, Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+.site-title a {
+  font-family: FLEAMARKET, Helvetica, Arial, sans-serif;
+  font-size: 1.7em;
+  /*color: #312f2c;*/
+}
+
+.site-description {
+    border-left: none;
+}
+
+.site-branding {
+    margin-bottom: .5em;
+    display: inline-flex;
+}
+
+.site-logo{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+  height: 10%;
+}
+
+/* Blog Title */
+
+.entry-title {
+    font-family: FLEAMARKET;
+    font-size: 2em;
+    font-weight: 600;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    margin: 0 auto;
+    padding: 0 1em;
+    display: inline-block;
+}
+
+.textwidget {
+    font-size: 1.2em;
+    text-align: justify;
+}
+
+.textarea{
+  color: black;
+}
+
+#content {
+    margin: 0 0 0 0;
+}
+
+.type-post {
+    font-size: 1.5em;
+}
+
+
+.widget {
+	background: inherit;
+  padding: 0px;
+}
+
+/* Front - Page */
+
+#front-page-topHeader {
+background: rgba(255, 246, 181, 0.0);
+}
+
+#front-page-main {
+    position: relative;
+    /*z-index: -1;*/
+}
+
+.front-page-content{
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255, 246, 181, 0.4);
+    border-radius: 3px;
+}
+
+#front-page-video{
+  position: relative;
+  z-index: -1;
+  background: rgba(255, 246, 181, 0.0)
+}
+
+video#bgvid {
+    position: realtive;
+    /*left: 50%;*/
+    /*min-width: 100%;*/
+    /*min-height: 100%;*/
+    width: 100%;
+    height: auto;
+    z-index: -100;
+    /*-ms-transform: translateX(-50%) translateY(0%);
+    -moz-transform: translateX(-50%) translateY(0%);
+    -webkit-transform: translateX(-50%) translateY(0%);
+    transform: translateX(-50%) translateY(0%);*/
+    /*background: url(polina.jpg) no-repeat;*/
+    background-size: cover;
+    /*-webkit-transform: scaleX(2);
+    -moz-transform: scaleX(2);*/
+}
+
+#front-page-buttons{
+  padding-top: 2em;
+}
+
+.front-page-button{
+  border: #785629;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  text-align: center;
+  width: 33%;
+  margin: 10px;
+  box-shadow: 5px 5px 5px #444;
+  background: #caaf74;
+  color: #444;
+  padding-top: 1.3em;
+}
+
+.front-page-buttonIcon{
+  width: 33%
+  height: auto;
+  margin: auto;
+}
+
+.front-page-buttonCaption{
+  font-size: 1.8em;
+  font-weight: 700;
+  margin: 10px;
+  font-family: FLEAMARKET;
+}
+
+#front-page-post-container {
+  max-width: 800px;
+  margin: auto;
+  padding-top: 3em;
+}
+
+#front-page-posts {
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+#front-page-posts a {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #2c1f0e;
+}
+
+.front-page-postsCaption{
+  font-size: 1.5em;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  margin-left: 10%;
+  text-decoration: underline;
+  color: #2c1f0e;
+}
+
+.front-page-post-title{
+  font-size: 1.2em;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  margin-left: 2em;
+  margin-bottom: .5em;
+}
+
+.front-page-post{
+  margin-bottom: 2em;
+  background:
+}
+
+.front-page-post-text{
+  margin-left: 3em;
+  font-weight: 600;
+}
+
+
+/****************************
+*      Main Menu            *
+****************************/
+
+.main-navigation {
+	position: relative;
+	/*z-index: 9;*/
+  /*margin-bottom: -12px;
+  margin-top: -18px;*/
+  display: block;
+  height: 80px;
+  background: rgba(2,6,20,0.7);
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 7px 0px 18px 0px #000000;g
+}
+
+.main-navigation ul {
+  /*background: rgba(221, 179, 16, 0.95);
+  border-radius: 5px;*/
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  position: relative;
+  display: table;
+  margin: 0 auto;
+}
+
+.main-navigation ul li {
+
+  /*background: rgba(196, 147, 80, 0.88);
+  border: 1px solid rgba( 0, 0, 0, 1);
+  border-radius: 5px;*/
+  text-align: center;
+  overflow: hidden;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.main-navigation ul li a {
+  margin: auto;
+  padding: .3em;
+  background-color: inherit;
+  /*box-shadow: 2px 2px 2px black;
+  border-radius: 5px;*/
+  width: 5em;
+  color: #e8d5bc;
+	font-size: 1.4em;
+	font-weight: 500;
+	font-family: FLEAMARKET, sans-serif;
+  text-decoration: none;
+  border: none;
+}
+
+/* hovergba(0, 0, 0, 0) menu item */
+
+.main-navigation li:hover {
+
+}
+.main-navigation li:hover > a {
+  /*background: rgba(196, 147, 80, 0.88);
+  box-shadow: 3px 3px 3px black;*/
+  font-weight: 600;
+  color: #89622b;
+  background: inherit;
+}
+
+/* current menu item */
+.main-navigation ul li.current-page-ancestor,
+.main-navigation ul li.current_page_item {
+}
+
+.main-navigation ul li.current-page-ancestor a,
+.main-navigation ul li.current_page_item a{
+  /*background: rgb(227, 203, 171);
+  border: inherit;*/
+  background: white;
+  color: #444;
+  font-weight: 600;
+  opacity: .7;
+  border-radius: 2px;
+}
+
+
+/****************************
+*      Sub Menu             *
+****************************/
+
+ /* hide original sub menu*/
+.main-navigation ul li:hover > ul,
+.main-navigation ul li.focus > ul {
+   display: none;
+}
+
+/****************************
+*      Main Small Menu            *
+****************************/
+.main-small-navigation{
+}
+.menu-toggle {
+  position: relative;
+  margin: 0 auto;
+  /*z-index: 9;*/
+  /*margin-bottom: 5px;*/
+  margin-top: -10px;
+  max-width: 750px;
+  display: block;
+  background: rgba(2,6,20,0.7);
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 2px 0px 5px 0px #000000;
+}
+
+.toggled-on {
+  /*box-shadow: 0px 0px 18px 0px #000000;*/
+
+}
+
+.main-small-navigation .menu {
+    background: rgba(52, 52, 53, 0.7);
+    display: none;
+    list-style: none;
+    margin-top: 0;
+    text-align: center;
+}
+
+.main-small-navigation h1 {
+  margin: auto;
+  padding: .3em;
+  /*box-shadow: 2px 2px 2px black;
+  border-radius: 5px;*/
+  color: #e8d5bc;
+  font-size: 1.3em;
+  font-weight: 600;
+  font-family: FLEAMARKET, sans-serif;
+  text-decoration: none;
+  border: none;
+}
+.main-small-navigation .menu li a {
+  color: #e8d5bc;
+  font-size: 1.3em;
+  font-weight: 500;
+  font-family: FLEAMARKET, sans-serif;
+  padding: 0;
+}
+/* hovergba(0, 0, 0, 0) menu item */
+
+.main-small-navigation li:hover {
+
+}
+.main-small-navigation li:hover > a {
+  /*background: rgba(196, 147, 80, 0.88);
+  box-shadow: 3px 3px 3px black;*/
+  font-weight: 600;
+  color: #89622b;
+  background: inherit;
+}
+
+.entry-header{
+  text-align: center;
+}
+
+/* verein */
+.profileText{
+  text-align: center;
+  font-size: 1.2em;
+}
+
+#orgaText {
+  text-align: justify;
+}
+
+#orgaText h1 {
+  text-align: center;
+}
+
+.content-info {
+	position: relative;
+	margin-bottom: 20px;
+  display: block;
+  height: 80px;
+  background: rgba(2,6,20,0.6);
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: 8px 9px 18px 0px #000;
+}
+
+.content-info ul {
+  /*background: rgba(221, 179, 16, 0.95);
+  border-radius: 5px;*/
+  padding-top: 1.8em;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  position: relative;
+  display: table;
+  margin: 0 auto;
+}
+
+.content-info ul li {
+
+  /*background: rgba(196, 147, 80, 0.88);
+  border: 1px solid rgba( 0, 0, 0, 1);
+  border-radius: 5px;*/
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.content-info ul li a {
+  margin: auto;
+  padding: .3em;
+  background-color: inherit;
+  /*box-shadow: 2px 2px 2px black;
+  border-radius: 5px;*/
+  width: 5em;
+  color: #e8d5bc;
+	font-size: 1.3em;
+	font-weight: 400;
+	font-family: FLEAMARKET, sans-serif;
+  text-decoration: none;
+  border: none;
+}
+
+.content-info ul li a:hover {
+  color: #89622b;
+  font-weight: 600;
+}
+
+/****************************
+*      Sub Menu             *
+****************************/
+
+.subMenu {
+  display: table;
+  margin: 0 auto;
+}
+
+.subMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.subMenu ul li {
+  float: left;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-left: solid 1px black;
+}
+
+.subMenu ul li:last-child {
+  border-right: solid 1px black;
+
+}
+
+.subMenu ul li a {
+    display: block;
+    color: #312f2c;
+    text-align: center;
+    text-decoration: none;
+    font-family: FLEAMARKET;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.subMenu ul li a:hover {
+  color: #89622b;
+  font-weight: 600;
+}
+
+.subMenu ul li.current_page_item a {
+  font-weight: 600;
+}
+
+/****************************
+*      Verein               *
+****************************/
+.pic-preview {
+  border-radius: 50%;
+  box-shadow: 2px 2px 10px #000000;
+}
+
+.pic-preview:hover {
+  border-radius: 50%;
+  box-shadow: 5px 5px 20px #000000;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.bigPicBox{
+  text-align: center;
+}
+
+.bigPic{
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.bigPic:hover{
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.site-footer {
+  clear: both;
+  width: 100%;
+}
+/* Alignment */
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
+}
+.entry-thumbnail {
+  margin: 0 0 1.5em;
+}
+
+
+/****************************
+*      Donations            *
+****************************/
+
+.donationsContainer {
+  background: inherit;
+  border-radius: 4px;
+}
+
+.donationYear {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 1em;
+  border: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px 3px 0px 0px;
+  box-shadow: 5px 7px 5px 0px #444;
+  background: #aa7937;
+}
+
+.donationYear>p {
+  margin: auto;
+  padding-left: 5px;
+  font-weight: 600;
+}
+
+/*.donationYear:hover{
+  opacity: 0.8;
+}*/
+
+.donationTotal>p {
+    margin: auto;
+    color: #eedfcc;
+}
+
+.donationTotal {
+    border: #785629;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0px 0px 3px 3px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 700;
+    margin: auto;
+    box-shadow: 5px 5px 5px #444;
+    background: #bd8940;
+}
+
+.donationButton {
+  border: #785629;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  /*padding-top: 20px;*/
+  margin: 10px;
+  box-shadow: 5px 5px 5px #444;
+  background: #caaf74;
+  color: #444;
+}
+
+/*#schoolFeeDonations17{      width: 45%;}
+  #schoolEquipmentDonations17{width: 25%;}
+  #transportDonations17{      width: 15%;}
+  #controlingDonations17{     width: 15%;}*/
+
+.donationButton:hover {
+  opacity: 0.85;
+  box-shadow: 8px 8px 8px;
+  cursor: pointer;
+}
+
+.donationLinks {
+    font-size: 1.5em;
+    font-weight: 600;
+    font-family: FLEAMARKET;
+}
+
+.donationPercentage {
+  font-size: 2.1em;
+  font-weight: 700;
+  color: #eedfcc;
+}
+
+.donationAbsolute {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #eedfcc;
+  /*margin-bottom: -1.3em;*/
+}
+
+.donationCaption {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin: 10px;
+    margin-top: 0px;
+    font-family: FLEAMARKET;
+}
+
+.donationPercentage>p {
+  margin: auto;
+}
+
+.donationCaption>p {
+  margin:auto;
+}
+
+#donationYear2017 {
+    margin-top: 30px;
+}
+
+.donationsText {
+  padding: 30px;
+  font-size: 1.1em;
+  text-align: justify;
+  color: black;
+}
+
+.donationsTextPerma {
+  padding: 30px;
+  font-size: 1.1em;
+  text-align: justify;
+  color: black;
+}
+
+#donationsForm {
+  text-align: center;
+}
+
+.textColoum {
+    width: 100%;
+    padding: 30px;
+}
+
+.textColoum h1 {
+    text-align: center;
+    height: 34px;
+}
+
+.column-one {
+  order: 1;
+}
+.column-two {
+  order: 2;
+}
+.column-three {
+  order: 3;
+}
+.column-four {
+  order: 4;
+}
+.column-five {
+  order: 5;
+}
+
+.extraSlim {
+  padding-top: 0px !important;
+}
+
+.verticalDivider{
+  flex: 1;
+  margin-top: 40px;
+  border-left:1px solid black;
+}
+
+/****************************
+*      Project              *
+****************************/
+
+.projectContainer{
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.projectContainer .pic-preview:hover {
+  border-radius: 50%;
+  box-shadow: 2px 2px 10px #000000;
+  opacity: 0.8;
+  cursor: default;
+}
+
+#projectSlogan{
+}
+
+#projectImage {
+}
+
+#projectImage img {
+  border: none;
+}
+
+#projectText {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/****************************
+*      Form                 *
+****************************/
+.formContainer{
+  font-size: 1.2em;
+  text-align: center;
+}
+
+input {
+    max-width: 400px;
+}
+
+input[type="submit"] {
+  font-size: 1.8em;
+}
+
+/* Minimum width of 600 pixels. */
+@media screen and (min-width: 751px) {
+	.site {
+		margin: 0 auto;
+		max-width: 960px;
+		overflow: hidden;
+	}
+
+  .site-title {
+    margin-left: 20px;
+  }
+
+	.site-main {
+		background: rgba(193, 190, 187, 0.9);
+		box-shadow: 5px 0px 20px #000000;
+	  border-radius: 0px 0px 0px 0px;
+		clear: both;
+		padding: 2.5em;
+		position: relative;
+		z-index: 4;
+	}
+
+  .post-title-line {
+    background-color: #403a41;
+    background-image: -webkit-gradient(linear, left top, right top, from(#403a41), to(rgba(0, 0, 0, 0)));
+    background-image: -webkit-linear-gradient(left, #403a41, rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(left, #403a41, rgba(0, 0, 0, 0));
+    background-image: -ms-linear-gradient(left, #403a41, rgba(0, 0, 0, 0));
+    background-image: -o-linear-gradient(left, #403a41, rgba(0, 0, 0, 0));
+    /*background-image: -webkit-gradient(linear, right top, left top, from(#403a41), to(rgba(0, 0, 0, 0)));
+    background-image: -webkit-linear-gradient(right, #403a41, rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(right, #403a41, rgba(0, 0, 0, 0));
+    background-image: -ms-linear-gradient(right, #403a41, rgba(0, 0, 0, 0));
+    background-image: -o-linear-gradient(right, #403a41, rgba(0, 0, 0, 0));*/
+
+    /*background: rgba(0, 0, 0, 1); /* For browsers that do not support gradients /
+    background: -webkit-radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Safari 5.1 to 6.0 /
+    background: -o-radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* For Opera 11.6 to 12.0 /
+    background: -moz-radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* For Firefox 3.6 to 15 /
+    background: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Standard syntax */
+
+    width: 80%;
+    left: 15%;
+    height: 1px;
+    position: relative;
+    background-color: transparent; /* add this line after the mixin call */
+  }
+
+
+
+  .widget ul {
+    list-style: disc;
+    padding-left: 1.5em;
+    margin-left: 30px;
+  }
+
+  .widget ul li {
+    border-bottom: 0px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1em;
+    padding-left: 0;
+    margin-left: 0;
+    font-weight: 700;
+  }
+
+  .widget ul li ul {
+    list-style: circle;
+  }
+
+  .widget ul li ul li{
+    border-bottom: 0px;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    margin-bottom: 0.7em;
+  }
+
+    @media screen and (max-heiht: 1200px){
+      .content-info{
+        display: none;
+      }
+    }
+
+}
+
+/* Maximum width of 800 pixels. */
+@media screen and (max-width: 780px) {
+  .site-logo img {
+  }
+  /* verein */
+  .vereinSidePlane .pic-preview {
+  display: none
+  }
+
+  .bigPicBox{
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .bigPic{
+    display: block !important;
+    margin: 0 auto;
+  }
+  .profileText{
+    display: block !important;
+  }
+
+  div#pgc-53-0-0 {
+    display: none;
+    /* margin-bottom: 0px; */
+  }
+}
+
+/* Maximum width of 750 pixels. */
+@media screen and (max-width: 750px) {
+
+  .site {
+    background: rgba(193, 190, 187, 0.0);
+  }
+  .site-main {
+    background: rgba(193, 190, 187, 0.9);
+    border: none;
+    clear: both;
+    padding: 1em;
+    position: relative;
+    z-index: 4;
+  }
+
+  .site-logo img{
+    height: 9vw;
+  }
+
+  .site-title {
+  	text-align: center;
+    line-height: 1;
+  }
+
+  .site-title a {
+   font-size: 9vw;
+    /*margin-left: 20px;*/
+  }
+
+  .main-navigation {
+    height: auto;
+  }
+
+  #donationCategories {
+    flex-direction: column;
+  }
+
+  .subMenu ul li a {
+      font-size: 1.5em;
+      font-weight: 500;
+  }
+
+  .donationTotal{
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .entry-title{
+    font-size: 1.5em;
+  }
+  .textColoum {
+    padding: 0;
+  }
+
+  .textColoum h1 {
+    text-align: center;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .textColoum p {
+    margin-bottom: 0;
+  }
+
+  .donationButton {
+      margin: 0 auto;
+      max-width: 150px;
+      margin-bottom: 10px;
+  }
+
+  .donationPercentage{
+    font-size: 1.3em;
+  }
+
+  .donationAbsolute{
+    font-size: 1.3em;
+  }
+
+  .donationCaption{
+    font-size: 1.3em;
+  }
+
+  #front-page-buttons {
+     padding-top: 0;
+   }
+}
+
+/* Maximum width of 550 pixels. */
+@media screen and (max-width: 550px) {
+  .subMenu ul {
+    margin: 1;
+  }
+
+  .subMenu ul li {
+    float: none;
+    border-left: 0;
+  }
+
+  .subMenu ul li:last-child {
+    border-right: 0;
+  }
+
+  #donationsReceived {
+    flex-direction: column;
+  }
+
+  #donationsUsed {
+    flex-direction: column;
+  }
+
+  .front-page-buttonCaption {
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+}
+
+/* Maximum width of 400 pixels. */
+@media screen and (max-width: 400px) {
+  .site-logo img {
+    height: 50px;
+  }
+
+  #front-page-buttons {
+    padding-top: none;
+    flex-direction: column;
+  }
+
+  .front-page-button {
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+}
