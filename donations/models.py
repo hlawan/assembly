@@ -3,6 +3,15 @@ from django.urls import reverse
 
 # Create your models here.
 
+class FrequentContribution(models.Model):
+    name = models.CharField(max_length=200)
+
+    def get_absolute_url(self):
+        return reverse('frequentcontribution-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.name
+
 class Member(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200, null=True, blank=True)
@@ -13,6 +22,9 @@ class Member(models.Model):
     mail = models.EmailField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
     birthdate = models.DateField(null=True, blank=True)
+    frequent = models.ForeignKey(FrequentContribution, on_delete=models.SET_NULL, null=True)
+    membership_fee = models.DecimalField(max_digits=9, decimal_places=2)
+    pay_method = models.CharField(max_length=200, choices=[('cash','Cash'),('direct_debit', 'Direct Debit'), ('transfer','Transfer'), ('better_place', 'BetterPlace')])
 
     def get_absolute_url(self):
         return reverse('member-detail', args=[str(self.id)])
@@ -21,26 +33,12 @@ class Member(models.Model):
         return self.first_name + " " + \
                self.last_name
 
-class FrequentContribution(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=9, decimal_places=2)
-    period = models.DurationField()
-    direct_debit = models.BooleanField(default=True)
-
-    def get_absolute_url(self):
-        return reverse('frequentcontribution-detail', args=[str(self.id)])
-
-    def __str__(self):
-        return self.member.first_name + " " + \
-               self.member.last_name + " ( " + \
-               str(self.amount) + "€ )"
-
 class Donation(models.Model):
     member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
     date = models.DateField()
     arrived = models.BooleanField(default=False)
-    frequent_contribution = models.ForeignKey(FrequentContribution, on_delete=models.CASCADE, blank=True, null=True)
+    frequent_contribution = models.ForeignKey(FrequentContribution, on_delete=models.SET_NULL, blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('donation-detail', args=[str(self.id)])

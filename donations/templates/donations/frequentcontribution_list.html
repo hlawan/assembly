@@ -6,7 +6,7 @@
 <a href="{% url 'frequentcontribution-create' %}" >Add</a>
 <ul>
 {% for frequentcontribution in object_list %}
-<li><a href="{{ frequentcontribution.get_absolute_url }}" >{{ frequentcontribution.member.first_name }}</a></li>
+<li><a href="{{ frequentcontribution.get_absolute_url }}" >{{ frequentcontribution.name }}</a></li>
 {% empty %}
     <li>No members yet.</li>
 {% endfor %}
