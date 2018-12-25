@@ -13,6 +13,10 @@ from donations.models import FrequentContribution
 
 from . import forms
 
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+import datetime
+
 # Member
 
 class MemberDetailView(LoginRequiredMixin, UpdateView):
@@ -102,3 +106,19 @@ class FrequentContributionCreateView(LoginRequiredMixin, CreateView):
 class FrequentContributionDeleteView(LoginRequiredMixin, DeleteView):
     model = FrequentContribution
     success_url = reverse_lazy('frequentcontribution-list')
+
+@login_required
+def execute_frequent(request,pk=None):
+    now = datetime.datetime.now()
+    frequent = FrequentContribution.objects.get(id=pk)
+
+    for member in frequent.member_set.all():
+        donation = Donation(member = member,
+                            amount = member.membership_fee,
+                            date = now,
+                            arrived = True,
+                            frequent_contribution = frequent)
+        donation.save()
+
+    html = "<html><body>It is now %s.</body></html>" % now
+    return HttpResponse(html)
