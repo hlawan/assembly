@@ -5,6 +5,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from donations.models import Member
@@ -120,5 +121,4 @@ def execute_frequent(request,pk=None):
                             frequent_contribution = frequent)
         donation.save()
 
-    html = "<html><body>It is now %s.</body></html>" % now
-    return HttpResponse(html)
+    return redirect('donation-list')
