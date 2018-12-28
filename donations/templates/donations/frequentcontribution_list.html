@@ -2,14 +2,17 @@
 {% block title}
 {% block content %}
 
-<h1>Frequent Contribution</h1>
-<a href="{% url 'frequentcontribution-create' %}" >Add</a>
-<ul>
+<h1>Frequent Contributions</h1>
+<h3><a href="{% url 'frequentcontribution-create' %}" >Add</a></h3>
+
+<table>
 {% for frequentcontribution in object_list %}
-<li><a href="{{ frequentcontribution.get_absolute_url }}" >{{ frequentcontribution.name }}</a></li>
+<tr>
+  <td><a href="{{ frequentcontribution.get_absolute_url }}" >{{ frequentcontribution.name }}</a></li>
+<tr>
 {% empty %}
-    <li>No members yet.</li>
+    <li>No frequent contributions yet.</li>
 {% endfor %}
-</ul>
+</table>
 
 {% endblock %}

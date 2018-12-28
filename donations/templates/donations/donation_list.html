@@ -2,14 +2,19 @@
 {% block title}
 {% block content %}
 
-<h1>Donation</h1>
-<a href="{% url 'donation-create' %}" >Add</a>
-<ul>
+<h1>Donations</h1>
+<h3><a href="{% url 'donation-create' %}" >Add</a></h3>
+
+<table>
 {% for donation in object_list %}
-<li><a href="{{ donation.get_absolute_url }}" >{{ donation.member.first_name }}</a></li>
+<tr>
+  <td><a href="{{ donation.member.get_absolute_url }}" >{{ donation.member.first_name }} {{ donation.member.last_name}}</a></td>
+  <td><a href="{{ donation.get_absolute_url }}" >{{ donation.amount }}€</a></td>
+  <td><a href="{{ donation.get_absolute_url }}" >{{ donation.date }}</a></td>
+</tr>
 {% empty %}
-    <li>No members yet.</li>
+    No donations yet.
 {% endfor %}
-</ul>
+</table>
 
 {% endblock %}
