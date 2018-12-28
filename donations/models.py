@@ -20,11 +20,10 @@ class Member(models.Model):
     post_code = models.PositiveSmallIntegerField(null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
     mail = models.EmailField(max_length=200, null=True, blank=True)
-    phone = models.CharField(max_length=30, null=True, blank=True)
-    birthdate = models.DateField(null=True, blank=True)
-    frequent = models.ForeignKey(FrequentContribution, on_delete=models.SET_NULL, null=True)
-    membership_fee = models.DecimalField(max_digits=9, decimal_places=2)
-    pay_method = models.CharField(max_length=200, choices=[('cash','Cash'),('direct_debit', 'Direct Debit'), ('transfer','Transfer'), ('better_place', 'BetterPlace')])
+    entry_date = models.DateField(null=True, blank=True)
+    frequent = models.ForeignKey(FrequentContribution, on_delete=models.SET_NULL, null=True, blank=True)
+    membership_fee = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
+    pay_method = models.CharField(max_length=200, choices=[('cash','Cash'),('direct_debit', 'Direct Debit'), ('transfer','Transfer'), ('better_place', 'BetterPlace')], null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('member-detail', args=[str(self.id)])
