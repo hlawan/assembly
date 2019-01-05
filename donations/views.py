@@ -43,7 +43,8 @@ class MemberCreateView(LoginRequiredMixin, CreateView):
     redirect_field_name = 'next'
     model = Member
     form_class = forms.MemberForm
-
+    success_url = reverse_lazy('member-create')
+    
 class MemberDeleteView(LoginRequiredMixin, DeleteView):
     model = Member
     success_url = reverse_lazy('member-list')
@@ -73,6 +74,7 @@ class DonationCreateView(LoginRequiredMixin, CreateView):
     redirect_field_name = 'next'
     model = Donation
     form_class = forms.DonationForm
+    success_url = reverse_lazy('donation-create')
 
 class DonationDeleteView(LoginRequiredMixin, DeleteView):
     model = Donation
