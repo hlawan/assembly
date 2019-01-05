@@ -20,6 +20,7 @@ class Member(models.Model):
     post_code = models.PositiveSmallIntegerField(null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
     mail = models.EmailField(max_length=200, null=True, blank=True)
+    membership = models.CharField(max_length=200, choices=[('voting','Voting Membership'),('supporting', 'Supporting Membership'), ('none','None')])
     entry_date = models.DateField(null=True, blank=True)
     frequent = models.ForeignKey(FrequentContribution, on_delete=models.SET_NULL, null=True, blank=True)
     membership_fee = models.DecimalField(max_digits=9, decimal_places=2, null=True, blank=True)
