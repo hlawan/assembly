@@ -28,12 +28,17 @@ class Member(models.Model):
     def get_absolute_url(self):
         return reverse('member-detail', args=[str(self.id)])
 
+    def get_donations(self):
+        u = Member.objects.get(pk=self.id)
+        donations = u.donation_set.all() 
+        return donations
+    
     def __str__(self):
         return self.first_name + " " + \
                self.last_name
 
 class Donation(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
+    member = models.ForeignKey(Member, related_name="donation_set", on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
     date = models.DateField()
     arrived = models.BooleanField(default=False)
