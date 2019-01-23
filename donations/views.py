@@ -7,6 +7,8 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template.loader import get_template
+from django.http import FileResponse
 
 from donations.models import Member
 from donations.models import Donation
@@ -17,6 +19,11 @@ from . import forms
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
+import subprocess
+import tempfile
+import os
+import re
+from num2words import num2words
 
 # Member
 
@@ -44,7 +51,7 @@ class MemberCreateView(LoginRequiredMixin, CreateView):
     model = Member
     form_class = forms.MemberForm
     success_url = reverse_lazy('member-create')
-    
+
 class MemberDeleteView(LoginRequiredMixin, DeleteView):
     model = Member
     success_url = reverse_lazy('member-list')
@@ -109,6 +116,49 @@ class FrequentContributionCreateView(LoginRequiredMixin, CreateView):
 class FrequentContributionDeleteView(LoginRequiredMixin, DeleteView):
     model = FrequentContribution
     success_url = reverse_lazy('frequentcontribution-list')
+
+# Spendenbescheinigung
+
+@login_required
+def render_donation_certificate(request, pk=None):
+    template_name = "donations/latex/spendenbescheinigung.tex"
+    template = get_template(template_name)
+
+    member = Member.objects.get(pk=pk)
+
+    # TODO: use last year instead of a fix year. later make it
+    # variable.
+    donations = member.donation_set.filter(date__year=2018)
+
+    total_amount = sum(d.amount for d in donations)
+
+    multiple = len(donations) > 1
+
+    if multiple:
+        date = "01.01.2018--31.12.2018"
+    else:
+        date = donations[0].date
+
+    # TODO: what other information is needed for the template?
+    context = { "member": member,
+                "donations": donations,
+                "amount": total_amount,
+                "amountwords": num2words(total_amount, lang='de'),
+                "date": date,
+                "multiple": multiple}
+
+    rendered = template.render(context)
+
+    with tempfile.TemporaryDirectory() as output_directory:
+        subprocess.run(["pdflatex",
+                        "--jobname=foo",
+                        "--output-directory=" + output_directory],
+                       input=rendered.encode())
+
+        # TODO: later build a cache for the generated
+        # spendenbescheinigungen
+
+        return FileResponse(open(output_directory + os.sep + "foo.pdf", 'rb'))
 
 @login_required
 def execute_frequent(request,pk=None):
