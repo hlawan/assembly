@@ -49,7 +49,9 @@
 }
 
 \begin{document}
-\MyFormBox[0.0cm]{Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)}{Name des Vereins, Anschrift des Vereins,  PLZ und Ort}
+\MyFormBox[0.0cm]{Aussteller (Bezeichnung und Anschrift der
+  steuerbegünstigten Einrichtung)}{Halisi Perspectives e.V. c/o
+  Lisa-Marie Schmidt, Geierstraße 22, 22305 Hamburg}
 
 {\bfseries\large {% if multiple %}Sammelbestätigung{% else %}Bestätigung{% endif %} über Geldzuwendungen/Mitgliedsbeiträge}\vspace*{1em}
 
@@ -64,15 +66,17 @@
 \vspace*{1em} & & \\ \tabucline[1pt]{-}
 \end{tabu}
 
-{% if not multiple %}\vspace*{1em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \notmarked	\hspace{1em}	Nein  \notmarked {% endif %} \vspace*{1em}
+{% if not multiple %}\vspace*{1em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \notmarked	\hspace{1em}	Nein  \marked {% endif %} \vspace*{1em}
 
 
 \notmarked Wir sind wegen Förderung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \hdashrule{2cm}{1pt}{1pt}  nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamts \hdashrule{2cm}{1pt}{1pt} StNr \hdashrule{2cm}{1pt}{1pt} vom \hdashrule{2cm}{1pt}{1pt} für den letzten Veranlagungszeitraum \hdashrule{2cm}{1pt}{1pt} nach §~5 Abs. 1 Nr.~9 des Körperschaftssteuergesetzes von der Körperschaftssteuer und nach §~3 Nr.~6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit. \vspace{2em}
   
-\notmarked Die Einhaltung der satzungsmäßigen Voraussetzungen nach den §§ 51, 59, 60 und 61 AO wurde vom Finanzamt \hdashrule{2cm}{1pt}{1pt} StNr. \hdashrule{2cm}{1pt}{1pt} mit Bescheid vom\hdashrule{2cm}{1pt}{1pt} nach § 60 AO gesondert festgestellt. Wir fördern nach unserer Satzung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \hdashrule{2cm}{1pt}{1pt}
+\marked Die Einhaltung der satzungsmäßigen Voraussetzungen nach den §§ 51, 59, 60 und 61 AO wurde vom Finanzamt Hamburg Nord StNr.14/430/17079 mit Bescheid vom 05.10.2017 nach § 60 AO gesondert festgestellt. Wir fördern nach unserer Satzung  mildtätige Zwecke sowie gemeinnützige Zwecke im Bereich der Bildung
  
 \begin{mdframed}[style=MyFormStyle]%
-Es wird bestätigt, dass die Zuwendung nur zur Förderung der begünstigten Zwecke 1, 2, 3 und 4 AO verwendet wird. 
+  Es wird bestätigt, dass die Zuwendung nur zur Förderung der
+  begünstigten Zwecke gemeinnützige Zwecke im Bereich der Bildung
+  verwendet wird.
 \end{mdframed} 
 
 {% if multiple %}\vspace*{0.5em}Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen o.ä., ausgestellt wurden und werden. 
@@ -80,7 +84,7 @@ Es wird bestätigt, dass die Zuwendung nur zur Förderung der begünstigten Zwec
 \vspace*{0.5em}Ob es sich um den Verzicht auf Erstattung von Aufwendungen handelt, ist der Anlage zur Sammelbestätigung zu entnehmen. {% endif %}
 
 \vspace*{2.5em} 
-
+Hamburg, \today
 \hrule
 
 \vspace*{0.5em} (Ort, Datum und Unterschrift des Zuwendungsempfängers) 
@@ -99,7 +103,7 @@ Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigun
 \begin{tabular}{p{0.2\textwidth}p{0.2\textwidth}p{0.3\textwidth}r} \toprule
   \bfseries\footnotesize Datum der Zuwendung & \bfseries\footnotesize Art der Zuwendung & \bfseries\footnotesize Verzicht auf die Erstattung von Aufwendungen (ja/nein) & \bfseries\footnotesize Betrag \\ \midrule
   {% for donation in donations %}
-    {{ donation.date|date:'d.m.Y' }} & Mitgliedsbeitrag & nein & {{ donation.amount }} \euro \\ \midrule[1pt]
+    {{ donation.date|date:'d.m.Y' }} & {% if donation.frequent_contribution and not member.membership == None %} Mitgliedsbeitrag {% else %} Spende {% endif %} & nein & {{ donation.amount }} \euro \\ \midrule[1pt]
   {% endfor %}
 Summe: & & & {{ amount }} \euro \\ \bottomrule[1pt]\bottomrule[1pt]
 \end{tabular}

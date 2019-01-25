@@ -143,7 +143,7 @@ def render_donation_certificate(request, pk=None):
     context = { "member": member,
                 "donations": donations,
                 "amount": total_amount,
-                "amountwords": num2words(total_amount, lang='de'),
+                "amountwords": num2words(total_amount, lang='de', to='currency'),
                 "date": date,
                 "multiple": multiple}
 
