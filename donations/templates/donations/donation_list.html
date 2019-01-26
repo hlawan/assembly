@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block title}
 {% block content %}
+{% load poll_extras %}
 
 <h1>Donations</h1>
 <h3><a href="{% url 'donation-create' %}" >Add</a></h3>
+
+<h2>Number of donations: {{ object_list|length }}</h2>
+<h2>Sum: {% get_donation_sum object_list %}€</h2>
 
 <table>
 {% for donation in object_list %}

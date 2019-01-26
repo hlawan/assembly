@@ -1,13 +1,20 @@
 from django.db import models
 from django.urls import reverse
+from django.db.models import Sum
 
 # Create your models here.
 
 class FrequentContribution(models.Model):
     name = models.CharField(max_length=200)
-
+    execution_date = models.DateField(null=True, blank=True)
+    
     def get_absolute_url(self):
         return reverse('frequentcontribution-detail', args=[str(self.id)])
+
+    def get_members(self):
+        frequent = FrequentContribution.objects.get(pk=self.id)
+        members = frequent.member_set.all() 
+        return members
 
     def __str__(self):
         return self.name
@@ -52,3 +59,6 @@ class Donation(models.Model):
         return self.member.first_name + " " + \
                self.member.last_name + " ( " + \
                str(self.amount) + "€ )"
+
+    def get_donation_sum():
+        return Donation.objects.all(Sum('amount'))
