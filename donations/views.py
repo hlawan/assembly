@@ -112,13 +112,12 @@ class FrequentContributionDeleteView(LoginRequiredMixin, DeleteView):
 
 @login_required
 def execute_frequent(request,pk=None):
-    now = datetime.datetime.now()
     frequent = FrequentContribution.objects.get(id=pk)
 
     for member in frequent.member_set.all():
         donation = Donation(member = member,
                             amount = member.membership_fee,
-                            date = now,
+                            date = frequent.execution_date,
                             arrived = True,
                             frequent_contribution = frequent)
         donation.save()
