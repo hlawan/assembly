@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # Member
@@ -35,4 +36,7 @@ urlpatterns = [
     path('frequentcontribution/delete/<int:pk>', views.FrequentContributionDeleteView.as_view(), name='frequentcontribution-delete'),
     path('frequentcontribution/execute/<int:pk>', views.execute_frequent , name='frequentcontribution-execute'),
     path('donationcertificate/<int:pk>', views.render_donation_certificate, name='donationcertificate-render'),
+    path('letter/<int:pk>', views.render_letter, name='letter-render'),
+    path('donationsforall/', views.render_donations_for_all, name='donations-for-all-render'),
+    path('', TemplateView.as_view(template_name="start.html")),
 ]
