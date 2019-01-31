@@ -15,10 +15,10 @@
 \usepackage[T1]{fontenc}
 \usepackage{microtype}
 \usepackage{lmodern}
-%\usepackage{libertine}
 
 % Use Sans Serif family as default
-%\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage[]{helvet}
 
 % German conventions
 \usepackage[ngerman]{babel}
@@ -28,34 +28,8 @@
 \usepackage{multirow}
 \usepackage[usenames]{xcolor}
 
-% Symbols for phone and email
-\usepackage{marvosym}
-
 % Embed signature and vcard
 \usepackage{graphicx}
-
-% ToDos
-\usepackage{todonotes}
-
-
-%% \firsthead{\noindent%
-%%  \parbox[b]{\useplength{firstheadwidth}}%
-%%  {\raggedleft
-%%    {
-%%      { %
-%%        \sffamily
-%%            { %
-%%              \Large \bfseries
-%%                  {\usekomavar{fromname}}\\
-%%            }%
-%%            { %
-%%              \normalsize
-%%                  {\usekomavar{headeraddress}}\\
-%%            }%
-%%      }
-%%    }%
-%%  }%
-%% }
 
 % Define new koma variables that are used to construct the format of the header and the back address
 \newkomavar{fromstreet}
@@ -69,31 +43,22 @@
 \setkomavar{fromplace}{22305 Hamburg}
 \setkomavar{fromaddress}{\usekomavar{fromstreet}\\
   \usekomavar{fromplace}}
-\setkomavar{fromlogo}{\includegraphics[height=5em]{../../../../static/HalisiPerspectivesLogo150x100.eps}}
+% ../../../../static/HalisiPerspectivesLogo150x100.eps
+\setkomavar{fromlogo}{\includegraphics[height=5em]{%
+    {{ file }}%
+}}
 \setkomavar{signature}{Lisa-Marie Schmidt für Halisi Perspectives e.V.}
 \setkomavar{subject}{\underline{Spendenbescheinigung für das Jahr 2018}}
 
 \begin{document}
-% If you want headings on subsequent pages,
-% remove the ``%'' on the next line:
-% \pagestyle{headings}
 
-\begin{letter}{Hochschule für Angewandte Wissenschaften Hamburg\\
-               Personalservice\\
-               Kennziffer 053/16-DM\\
-               Berliner Tor 5\\
-               20099 Hamburg}
+\begin{letter}{ {{ member.first_name }} {{ member.last_name }} \\
+                {{ member.street }} {{ member.house_number }} \\
+                {{ member.post_code }} {{ member.city }} }
 
-\opening{Liebe Person x,}
+\opening{Liebe*r {{ member.first_name }} {{ member.last_name }},}
 Dankestext...
 \closing{Viele liebe Grüße,}
-
-%% \vskip -11.5ex
-%% \hskip -1.7em
-%% \includegraphics[scale=.13]{signature}
-
-
-%enclosure listing
 
 \end{letter}
 \end{document}

@@ -24,6 +24,7 @@ import tempfile
 import os
 import re
 from num2words import num2words
+from PyPDF2 import PdfFileMerger
 
 # Member
 
@@ -121,6 +122,13 @@ class FrequentContributionDeleteView(LoginRequiredMixin, DeleteView):
 
 @login_required
 def render_donation_certificate(request, pk=None):
+    # TODO: later build a cache for the generated
+    # spendenbescheinigungen
+    with tempfile.TemporaryDirectory() as output_directory:
+        donation_certificate = render_donation_certificate_for_person(pk, output_directory)
+        return FileResponse(open(donation_certificate, 'rb'))
+
+def render_donation_certificate_for_person(pk, tmp_directory):
     template_name = "donations/latex/spendenbescheinigung.tex"
     template = get_template(template_name)
 
@@ -135,11 +143,12 @@ def render_donation_certificate(request, pk=None):
     multiple = len(donations) > 1
 
     if multiple:
+        # TODO: use last year instead of a fix year. later make it
+        # variable.
         date = "01.01.2018--31.12.2018"
     else:
         date = donations[0].date
 
-    # TODO: what other information is needed for the template?
     context = { "member": member,
                 "donations": donations,
                 "amount": total_amount,
@@ -149,16 +158,61 @@ def render_donation_certificate(request, pk=None):
 
     rendered = template.render(context)
 
+    subprocess.run(["pdflatex",
+                    "--jobname=donation" + str(pk),
+                    "--output-directory=" + tmp_directory],
+                   input=rendered.encode())
+
+    return tmp_directory + os.sep + 'donation' + str(pk) + ".pdf"
+
+
+@login_required
+def render_letter(request, pk=None):
     with tempfile.TemporaryDirectory() as output_directory:
-        subprocess.run(["pdflatex",
-                        "--jobname=foo",
-                        "--output-directory=" + output_directory],
-                       input=rendered.encode())
+        letter = render_letter_for_person(pk, output_directory)
+        return FileResponse(open(letter, 'rb'))
 
-        # TODO: later build a cache for the generated
-        # spendenbescheinigungen
+def render_letter_for_person(pk, tmp_directory):
+    template_name = "donations/latex/anschreiben.tex"
+    template = get_template(template_name)
 
-        return FileResponse(open(output_directory + os.sep + "foo.pdf", 'rb'))
+    member = Member.objects.get(pk=pk)
+
+    abs_file = os.path.abspath('static/anschreiben_logo.pdf')
+
+    context = { "member": member,
+                "file": abs_file}
+    rendered = template.render(context)
+
+    subprocess.run(["pdflatex",
+                    "--jobname=letter" + str(pk),
+                    "--output-directory=" + tmp_directory],
+                   input=rendered.encode())
+
+    return tmp_directory + os.sep + 'letter' + str(pk) + ".pdf"
+
+@login_required
+def render_donations_for_all(request):
+    all_members = Member.objects.all()
+    letters = []
+    certificates = []
+    with tempfile.TemporaryDirectory() as output_directory:
+        for member in all_members:
+            member_id = member.id
+            letter = render_letter_for_person(member_id, output_directory)
+            donation_certificate = render_donation_certificate_for_person(member_id, output_directory)
+            letters.append(letter)
+            certificates.append(donation_certificate)
+
+        merger = PdfFileMerger()
+        for l, c in zip(letters, certificates):
+            merger.append(l)
+            merger.append(c)
+
+        with open(output_directory + 'all_users.pdf', 'wb') as output_file:
+            merger.write(output_file)
+
+        return FileResponse(open(output_directory + 'all_users.pdf', 'rb'))
 
 @login_required
 def execute_frequent(request,pk=None):
