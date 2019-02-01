@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.loader import get_template
-from django.http import FileResponse
+from django.http import FileResponse, Http404
 
 from donations.models import Member
 from donations.models import Donation
@@ -126,7 +126,10 @@ def render_donation_certificate(request, pk=None):
     # spendenbescheinigungen
     with tempfile.TemporaryDirectory() as output_directory:
         donation_certificate = render_donation_certificate_for_person(pk, output_directory)
-        return FileResponse(open(donation_certificate, 'rb'))
+        if not donation_certificate:
+            raise Http404("No donations for this person yet")
+        else:
+            return FileResponse(open(donation_certificate, 'rb'))
 
 def render_donation_certificate_for_person(pk, tmp_directory):
     template_name = "donations/latex/spendenbescheinigung.tex"
@@ -137,6 +140,9 @@ def render_donation_certificate_for_person(pk, tmp_directory):
     # TODO: use last year instead of a fix year. later make it
     # variable.
     donations = member.donation_set.filter(date__year=2018)
+
+    if len(donations) == 0:
+        return None
 
     total_amount = sum(d.amount for d in donations)
 
@@ -199,8 +205,10 @@ def render_donations_for_all(request):
     with tempfile.TemporaryDirectory() as output_directory:
         for member in all_members:
             member_id = member.id
-            letter = render_letter_for_person(member_id, output_directory)
             donation_certificate = render_donation_certificate_for_person(member_id, output_directory)
+            if not donation_certificate:
+                continue
+            letter = render_letter_for_person(member_id, output_directory)
             letters.append(letter)
             certificates.append(donation_certificate)
 
