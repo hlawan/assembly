@@ -6,11 +6,29 @@
 <h1>Donations</h1>
 <h3><a href="{% url 'donation-create' %}" >Add</a></h3>
 
-<h2>Number of donations: {{ object_list|length }}</h2>
-<h2>Sum: {% get_donation_sum object_list %}€</h2>
+<!--h2>Number of donations: {{ donations|length }}</h2>
+<h2>Sum: {% get_donation_sum %}€</h2-->
 
+<div class="pagination" style="text-align:center; font:caption">
+    <span class="step-links">
+        {% if donations.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ donations.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ donations.number }} of {{ donations.paginator.num_pages }}.
+        </span>
+
+        {% if donations.has_next %}
+            <a href="?page={{ donations.next_page_number }}">next</a>
+            <a href="?page={{ donations.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</br>
 <table>
-{% for donation in object_list %}
+{% for donation in donations %}
 <tr>
   <td><a href="{{ donation.member.get_absolute_url }}" >{{ donation.member.first_name }} {{ donation.member.last_name}}</a></td>
   <td><a href="{{ donation.get_absolute_url }}" >{{ donation.amount }}€</a></td>

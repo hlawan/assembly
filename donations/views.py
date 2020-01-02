@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.loader import get_template
 from django.http import FileResponse, Http404
+from django.core.paginator import Paginator
 
 from donations.models import Member
 from donations.models import Donation
@@ -71,11 +72,14 @@ class DonationDetailView(LoginRequiredMixin, UpdateView):
         # It should return an HttpResponse.
         return super().form_valid(form)
 
-class DonationListView(LoginRequiredMixin, ListView):
-    login_url = '/login/'
-    redirect_field_name = 'next'
-    model = Donation
-    paginate_by = 100
+@login_required
+def DonationListView(request):
+    donation_list = Donation.objects.all().order_by('-date')
+    paginator = Paginator(donation_list, 100) # Show 50 contacts per page
+
+    page = request.GET.get('page')
+    donations = paginator.get_page(page)
+    return render(request, 'donations/donation_list.html', {'donations': donations})
 
 class DonationCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'

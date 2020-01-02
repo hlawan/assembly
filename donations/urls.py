@@ -26,7 +26,7 @@ urlpatterns = [
     path('member/delete/<int:pk>', views.MemberDeleteView.as_view(), name='member-delete'),
     # Donation
     path('donation/<int:pk>', views.DonationDetailView.as_view(), name='donation-detail'),
-    path('donation/', views.DonationListView.as_view(), name='donation-list'),
+    path('donation/', views.DonationListView, name='donation-list'),
     path('donation/create', views.DonationCreateView.as_view(), name='donation-create' ),
     path('donation/delete/<int:pk>', views.DonationDeleteView.as_view(), name='donation-delete'),
     # FreqendContriubion
