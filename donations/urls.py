@@ -37,6 +37,5 @@ urlpatterns = [
     path('frequentcontribution/execute/<int:pk>', views.execute_frequent , name='frequentcontribution-execute'),
     path('donationcertificate/<int:pk>', views.render_donation_certificate, name='donationcertificate-render'),
     path('letter/<int:pk>', views.render_letter, name='letter-render'),
-    path('donationsforall/', views.render_donations_for_all, name='donations-for-all-render'),
-    path('', TemplateView.as_view(template_name="start.html")),
+    path('', views.start_view, name='start'),
 ]

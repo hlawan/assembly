@@ -1,0 +1,71 @@
+\documentclass[
+               DIV=15,
+               fontsize=10pt,
+               parskip=half,
+               enlargefirstpage=true,
+               fromalign=right,
+               fromrule=afteraddress,
+               fromlogo,
+              ]{scrlttr2}
+
+% Input is UTF-8, not ASCII
+\usepackage[utf8]{inputenc}
+
+% Font
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{lmodern}
+
+% Use Sans Serif family as default
+\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage[]{helvet}
+
+% German conventions
+\usepackage[ngerman]{babel}
+
+% Structure header
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[usenames]{xcolor}
+
+% Embed signature and vcard
+\usepackage{graphicx}
+
+% Define new koma variables that are used to construct the format of the header and the back address
+\newkomavar{fromstreet}
+\newkomavar{fromplace}
+
+\renewcommand*{\raggedsignature}{\raggedright}
+
+% Set koma variables
+\setkomavar{fromname}{Halisi Perspectives e.V.}
+\setkomavar{fromstreet}{Geierstraße 22}
+\setkomavar{fromplace}{22305 Hamburg}
+\setkomavar{fromaddress}{\usekomavar{fromstreet}\\
+  \usekomavar{fromplace}}
+% ../../../../static/HalisiPerspectivesLogo150x100.eps
+\setkomavar{fromlogo}{\includegraphics[height=5em]{%
+    {{ file }}%
+}}
+\setkomavar{signature}{Lisa-Marie Schmidt für Halisi Perspectives e.V.}
+\setkomavar{subject}{\underline{Spendenbescheinigung für das Jahr 2019}}
+
+\begin{document}
+
+\begin{letter}{ {{ member.first_name }} {{ member.last_name }} \\
+                {{ member.street }} {{ member.house_number }} \\
+                {{ member.post_code }} {{ member.city }} }
+
+\opening{Liebe/r {{ member.first_name }} {{ member.last_name }},}
+wir möchten uns ganz herzlich für die Spenden an den Halisi Perspectives e.V. bedanken.\\
+%\vskip .5em
+
+Sollte es Unklarheiten bezüglich der Spendenbescheinigung geben, bitten wir um eine Rückmeldung an info@halisiperspectives.de.\\
+
+Mehr Informationen über die Kinder und die Vereinsarbeit auf halisiperspectives.de.\\
+%\vskip .5em
+
+\closing{Viele liebe Grüße und ein schönes und glückliches Jahr 2020 wünscht,}
+
+\end{letter}
+\end{document}

@@ -75,7 +75,7 @@ class DonationDetailView(LoginRequiredMixin, UpdateView):
 @login_required
 def DonationListView(request):
     donation_list = Donation.objects.all().order_by('-date')
-    paginator = Paginator(donation_list, 100) # Show 50 contacts per page
+    paginator = Paginator(donation_list, 100) # Show 100 donations per page
 
     page = request.GET.get('page')
     donations = paginator.get_page(page)
@@ -125,25 +125,25 @@ class FrequentContributionDeleteView(LoginRequiredMixin, DeleteView):
 # Spendenbescheinigung
 
 @login_required
-def render_donation_certificate(request, pk=None):
+def render_donation_certificate(request, year=None, pk=None):
     # TODO: later build a cache for the generated
     # spendenbescheinigungen
     with tempfile.TemporaryDirectory() as output_directory:
-        donation_certificate = render_donation_certificate_for_person(pk, output_directory)
+        last_year = datetime.datetime.now().year - 1
+        donation_certificate = render_donation_certificate_for_person(pk,
+                                                                      output_directory,
+                                                                      last_year)
         if not donation_certificate:
             raise Http404("No donations for this person yet")
         else:
             return FileResponse(open(donation_certificate, 'rb'))
 
-def render_donation_certificate_for_person(pk, tmp_directory):
+def render_donation_certificate_for_person(pk, tmp_directory, year):
     template_name = "donations/latex/spendenbescheinigung.tex"
     template = get_template(template_name)
 
     member = Member.objects.get(pk=pk)
-
-    # TODO: use last year instead of a fix year. later make it
-    # variable.
-    donations = member.donation_set.filter(date__year=2018)
+    donations = member.donation_set.filter(date__year=year)
 
     if len(donations) == 0:
         return None
@@ -153,9 +153,7 @@ def render_donation_certificate_for_person(pk, tmp_directory):
     multiple = len(donations) > 1
 
     if multiple:
-        # TODO: use last year instead of a fix year. later make it
-        # variable.
-        date = "01.01.2018--31.12.2018"
+        date = "01.01." + str(year) + "--31.12." + str(year)
     else:
         date = donations[0].date
 
@@ -179,11 +177,12 @@ def render_donation_certificate_for_person(pk, tmp_directory):
 @login_required
 def render_letter(request, pk=None):
     with tempfile.TemporaryDirectory() as output_directory:
-        letter = render_letter_for_person(pk, output_directory)
+        last_year = datetime.datetime.now().year - 1
+        letter = render_letter_for_person(pk, output_directory, last_year)
         return FileResponse(open(letter, 'rb'))
 
-def render_letter_for_person(pk, tmp_directory):
-    template_name = "donations/latex/anschreiben.tex"
+def render_letter_for_person(pk, tmp_directory, year):
+    template_name = "donations/latex/anschreiben_" + str(year) + ".tex"
     template = get_template(template_name)
 
     member = Member.objects.get(pk=pk)
@@ -201,18 +200,19 @@ def render_letter_for_person(pk, tmp_directory):
 
     return tmp_directory + os.sep + 'letter' + str(pk) + ".pdf"
 
-@login_required
-def render_donations_for_all(request):
+def render_donations_for_all(request, year):
     all_members = Member.objects.all()
     letters = []
     certificates = []
     with tempfile.TemporaryDirectory() as output_directory:
         for member in all_members:
             member_id = member.id
-            donation_certificate = render_donation_certificate_for_person(member_id, output_directory)
+            donation_certificate = render_donation_certificate_for_person(member_id,
+                                                                          output_directory,
+                                                                          year)
             if not donation_certificate:
                 continue
-            letter = render_letter_for_person(member_id, output_directory)
+            letter = render_letter_for_person(member_id, output_directory, year)
             letters.append(letter)
             certificates.append(donation_certificate)
 
@@ -239,3 +239,21 @@ def execute_frequent(request,pk=None):
         donation.save()
 
     return redirect('donation-list')
+
+def start_view(request):
+    print(request)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = forms.YearForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            year = form.cleaned_data["year"]
+            return render_donations_for_all(request, year)
+            
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = forms.YearForm()
+        return render(request, 'start.html', {'form': form})
+        
+    
