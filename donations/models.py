@@ -45,6 +45,16 @@ class Member(models.Model):
         return self.first_name + " " + \
                self.last_name
 
+# getter
+def voting_members():
+    return Member.objects.filter(membership='voting')
+
+def supporting_members():
+    return Member.objects.filter(membership='supporting')
+
+def external_members():
+    return Member.objects.filter(membership='none')
+
 class Donation(models.Model):
     member = models.ForeignKey(Member, related_name="donation_set", on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=9, decimal_places=2)

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load poll_extras %}
+{% block content %}
+
+
+<div class="donationsContainer">
+  {% for stats in summary reversed %}
+  <div class="donationYear">
+    <p>{{ stats.time_range }}<p>
+  </div>
+
+  <div class="donationTotal">
+    <p>Erhalten: {{ stats.total|currency }}€<p>
+  </div>
+
+  <div id="donationsReceived" class="flexContainer">
+    <div class="donationButton" id="singleDonations18">
+      <div class="donationPercentage">
+        <p>{{ stats.extern_percent|currency }}%<p>
+      </div>
+      <div class="donationAbsolute">
+        <p>{{ stats.extern_amount|currency }}€<p>
+      </div>
+
+      <div class="post-title-line"></div>
+
+      <div class="donationCaption">
+        <p>Einzelspenden<p>
+      </div>
+    </div>
+
+    <div class="donationButton" id="supporterDonnations18">
+      <div class="donationPercentage">
+        <p>{{ stats.supporting_percent|currency }}%<p>
+      </div>
+      <div class="donationAbsolute">
+        <p>{{ stats.supporting_amount|currency }}€<p>
+      </div>
+      <div class="post-title-line"></div>
+      <div class="donationCaption">
+        <p>Fördermitglieder<p>
+      </div>
+    </div>
+
+    <div class="donationButton" id="memberDonations18">
+      <div class="donationPercentage">
+        <p>{{ stats.voting_percent|currency }}%<p>
+      </div>
+      <div class="donationAbsolute">
+        <p>{{ stats.voting_amount|currency }}€<p>
+      </div>
+      <div class="post-title-line"></div>
+      <div class="donationCaption">
+        <p>Mitglieder<p>
+      </div>
+    </div>
+  </div>
+
+
+  {% empty %}
+    No donations yet.
+  {% endfor %}
+
+</div>
+{% endblock %}

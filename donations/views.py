@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.loader import get_template
 from django.http import FileResponse, Http404
 from django.core.paginator import Paginator
+from django.db.models import Sum
 
 from donations.models import Member
 from donations.models import Donation
@@ -241,7 +242,6 @@ def execute_frequent(request,pk=None):
     return redirect('donation-list')
 
 def start_view(request):
-    print(request)
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -255,5 +255,60 @@ def start_view(request):
     else:
         form = forms.YearForm()
         return render(request, 'start.html', {'form': form})
+
+
         
+def donation_statistic_view(request):
+    donation_list = Donation.objects.all()
+    start = donation_list.earliest('date').date.year
+    end = donation_list.latest('date').date.year
+
+    summary = []
     
+    # accumulated over all years
+    all_total = 0
+    all_voting = 0
+    all_supporting = 0
+    all_extern = 0
+    
+    for year in range(start, end+1):
+        # per year values
+        donations = donation_list.filter(date__year=year)
+        
+        total = donations.aggregate(Sum('amount'))['amount__sum']
+        voting = donations.filter(member__membership='voting').aggregate(Sum('amount'))['amount__sum']
+        supporting = donations.filter(member__membership='supporting').aggregate(Sum('amount'))['amount__sum']
+        extern = donations.filter(member__membership='none').aggregate(Sum('amount'))['amount__sum']
+
+        summary.append(
+            {"time_range": year,
+             "total": total,    
+             "voting_amount": voting,
+             "supporting_amount": supporting,
+             "extern_amount": extern,
+             "voting_percent": percent(total, voting),
+             "supporting_percent": percent(total, supporting),
+             "extern_percent": percent(total, extern)}
+        )
+        
+        all_total += total
+        all_voting += voting
+        all_supporting += supporting
+        all_extern += extern
+
+    # acuumulated values
+    summary.append(
+        {"time_range": "Gesamt",
+         "total": all_total,
+         "voting_amount": all_voting,
+         "supporting_amount": all_supporting,
+         "extern_amount": all_extern,
+         "voting_percent": percent(all_total, all_voting),
+         "supporting_percent": percent(all_total, all_supporting),
+         "extern_percent": percent(all_total, all_extern)}
+    )
+    
+    return render(request, 'donations/donation_statistics.html', {'summary': summary})
+
+def percent(total, part):
+    return part/(total/100)

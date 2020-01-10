@@ -29,13 +29,16 @@ urlpatterns = [
     path('donation/', views.DonationListView, name='donation-list'),
     path('donation/create', views.DonationCreateView.as_view(), name='donation-create' ),
     path('donation/delete/<int:pk>', views.DonationDeleteView.as_view(), name='donation-delete'),
+    path('donation/statistics', views.donation_statistic_view, name='donation-statistics'),
     # FreqendContriubion
     path('frequentcontribution/<int:pk>', views.FrequentContributionDetailView.as_view(), name='frequentcontribution-detail'),
     path('frequentcontribution/', views.FrequentContributionListView.as_view(), name='frequentcontribution-list'),
     path('frequentcontribution/create', views.FrequentContributionCreateView.as_view(), name='frequentcontribution-create' ),
     path('frequentcontribution/delete/<int:pk>', views.FrequentContributionDeleteView.as_view(), name='frequentcontribution-delete'),
     path('frequentcontribution/execute/<int:pk>', views.execute_frequent , name='frequentcontribution-execute'),
+    # Dontation Certificates
     path('donationcertificate/<int:pk>', views.render_donation_certificate, name='donationcertificate-render'),
     path('letter/<int:pk>', views.render_letter, name='letter-render'),
+    # Start
     path('', views.start_view, name='start'),
 ]
