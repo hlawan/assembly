@@ -20,6 +20,7 @@ def last_year():
     return str(last_year)
 
 def currency(euro):
+    print(euro)
     euro = round(float(euro), 2)
     return "%s%s" % (int(euro), ("%0.2f" % euro)[-3:])
 

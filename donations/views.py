@@ -274,12 +274,19 @@ def donation_statistic_view(request):
     for year in range(start, end+1):
         # per year values
         donations = donation_list.filter(date__year=year)
-        
+
+        # sum donations of different membertypes
         total = donations.aggregate(Sum('amount'))['amount__sum']
         voting = donations.filter(member__membership='voting').aggregate(Sum('amount'))['amount__sum']
         supporting = donations.filter(member__membership='supporting').aggregate(Sum('amount'))['amount__sum']
         extern = donations.filter(member__membership='none').aggregate(Sum('amount'))['amount__sum']
 
+        # hack if queryset was empty
+        if not total: total = 0
+        if not voting: voting = 0
+        if not supporting: supporting = 0
+        if not extern: extern = 0
+    
         summary.append(
             {"time_range": year,
              "total": total,    
@@ -290,7 +297,8 @@ def donation_statistic_view(request):
              "supporting_percent": percent(total, supporting),
              "extern_percent": percent(total, extern)}
         )
-        
+
+        # accumulate
         all_total += total
         all_voting += voting
         all_supporting += supporting
@@ -311,4 +319,7 @@ def donation_statistic_view(request):
     return render(request, 'donations/donation_statistics.html', {'summary': summary})
 
 def percent(total, part):
-    return part/(total/100)
+    if total and part:
+        return part/(total/100)
+    else:
+        return 0
